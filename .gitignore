@@ -1,3 +1,4 @@
-*.html
+dst/*.html
 data_*/
 .DS_Store
+node_modules/

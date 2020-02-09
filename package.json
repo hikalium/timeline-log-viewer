@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/hikalium/timeline-log-viewer/issues"
   },
-  "homepage": "https://github.com/hikalium/timeline-log-viewer#readme"
+  "homepage": "https://github.com/hikalium/timeline-log-viewer#readme",
+  "dependencies": {
+    "ejs": "^3.0.1"
+  }
 }
