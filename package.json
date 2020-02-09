@@ -1,0 +1,26 @@
+{
+  "name": "timeline-log-viewer",
+  "version": "0.0.1",
+  "description": "Log viewer in chronological way",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hikalium/timeline-log-viewer.git"
+  },
+  "keywords": [
+    "node",
+    "nodejs",
+    "timeline",
+    "log",
+    "viewer"
+  ],
+  "author": "hikalium",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hikalium/timeline-log-viewer/issues"
+  },
+  "homepage": "https://github.com/hikalium/timeline-log-viewer#readme"
+}
