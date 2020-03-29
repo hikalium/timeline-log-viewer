@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>timeline-log-viewer</title>
+  <link rel="stylesheet" href="/css/tlviewer.css">
+</head>
+<body>
+  <textarea id='input' style='display:none'>
+<%= fitbit_sleep_data %>
+  </textarea>
+  <textarea id='ramelteonInput' style='display:none'>
+<%= ramelteon_data %>
+    </textarea>
+  <div>
+    <input id="dateBegin"type="date">
+    <input id="dateLast"type="date">
+    <button id="updateButton" onclick='updateResult();'>表示</button>
+  </div>
+  <div id='output'>
+    <div id='d1' class='daterow'>
+      <div id='t1' style='left: 10%; height: 16px; width: 20%; background-color: #00ff00; position: absolute;'></div>
+    
+    </div>
+    <div id='d2' class='daterow'></div>
+  </div>
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="/js/tlviewer.js"></script>
+</body>
+

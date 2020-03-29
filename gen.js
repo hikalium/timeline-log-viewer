@@ -1,5 +1,8 @@
 const ejs = require('ejs');
 const fs = require('fs');
+const commandLineArgs = require('command-line-args');
+const commandLineUsage = require('command-line-usage');
+const express = require('express');
 
 function getDateStr(d) {
   // YYYYMMDD in local time
@@ -9,35 +12,66 @@ function getDateStr(d) {
   return y + ('00' + (m + 1)).substr(-2) + ('00' + (d)).substr(-2);
 }
 
-const data = {};
+const optionDefinitions = [
+  {name: 'help', alias: 'h', type: Boolean, description: 'print help.'},
+  {
+    name: 'serve',
+    alias: 's',
+    type: Boolean,
+    description: 'Serve output on localhost'
+  },
+  {name: 'output', alias: 'o', type: String, description: 'Output file path'},
+  {name: 'fitbit-data', type: String, description: 'Output file path'},
+  {name: 'slack-data', type: String, description: 'Output file path'},
+];
+const sections = [
+  {header: 'tlviewer', content: 'Time line log viewer'},
+  {header: 'Options', optionList: optionDefinitions}
+];
 
-const fitbitSleepDataFile = process.argv[2];
-console.log(`fitbitSleepDataFile: ${fitbitSleepDataFile}`);
-try {
-  data.fitbit_sleep_data = fs.readFileSync(fitbitSleepDataFile, 'utf-8');
-} catch (e) {
-  console.error(e);
-  return;
-}
+(async () => {
+  const options = commandLineArgs(optionDefinitions);
+  const usage = commandLineUsage(sections);
 
-const ramelteonDataFile = process.argv[3];
-console.log(`ramelteonDataFile: ${ramelteonDataFile}`);
-try {
-  data.ramelteon_data = fs.readFileSync(ramelteonDataFile, 'utf-8');
-} catch (e) {
-  console.error(e);
-  return;
-}
+  const data = {};
 
-const dst_file = `dst/report_${getDateStr(new Date())}.html`;
-console.log(`dst: ${dst_file}`);
+  const fitbitSleepDataFile = options["fitbit-data"];
+  console.log(`fitbitSleepDataFile: ${fitbitSleepDataFile}`);
+  try {
+    data.fitbit_sleep_data = fs.readFileSync(fitbitSleepDataFile, 'utf-8');
+  } catch (e) {
+    console.error(e);
+    return;
+  }
 
-ejs.renderFile(
-    'template/template.ejs', data,
-    null, function(err, str) {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      fs.writeFileSync(dst_file, str);
+  const ramelteonDataFile = options["slack-data"];
+  console.log(`ramelteonDataFile: ${ramelteonDataFile}`);
+  try {
+    data.ramelteon_data = fs.readFileSync(ramelteonDataFile, 'utf-8');
+  } catch (e) {
+    console.error(e);
+    return;
+  }
+
+  const dst_file = `dst/report_${getDateStr(new Date())}.html`;
+  console.log(`dst: ${dst_file}`);
+
+  if(options["serve"]) {
+    let app = express();
+    app.use(express.static('public'));
+    app.set('view engine', 'ejs');
+    app.get('/', (req, res) => {
+        res.render('template', data);
     });
+    app.listen(4000, () => console.log('Example app listening on port 4000!'));
+    return;
+  }
+
+  ejs.renderFile('views/template.ejs', data, null, function(err, str) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    fs.writeFileSync(dst_file, str);
+  });
+})();
