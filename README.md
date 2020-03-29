@@ -1,4 +1,7 @@
 # timeline-log-viewer
+
+![screen shot](./docs/screenshot.png)
+
 Log viewer in chronological way
 
 https://www.fitbit.com/settings/data/export
@@ -14,4 +17,3 @@ $ node get.js
 ```
 node gen.js --fitbit-data data_fitbit/data_merged_20200314170657.csv --slack-data data_slack/slack_out_filtered.txt -s
 ```
-
