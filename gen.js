@@ -23,6 +23,7 @@ const optionDefinitions = [
   {name: 'output', alias: 'o', type: String, description: 'Output file path'},
   {name: 'fitbit-data', type: String, description: 'Output file path'},
   {name: 'slack-data', type: String, description: 'Output file path'},
+  {name: 'fitbit-sleep-json', type: String, description: 'Output file path'},
 ];
 const sections = [
   {header: 'tlviewer', content: 'Time line log viewer'},
@@ -35,7 +36,7 @@ const sections = [
 
   const data = {};
 
-  const fitbitSleepDataFile = options["fitbit-data"];
+  const fitbitSleepDataFile = options['fitbit-data'];
   console.log(`fitbitSleepDataFile: ${fitbitSleepDataFile}`);
   try {
     data.fitbit_sleep_data = fs.readFileSync(fitbitSleepDataFile, 'utf-8');
@@ -44,7 +45,7 @@ const sections = [
     return;
   }
 
-  const ramelteonDataFile = options["slack-data"];
+  const ramelteonDataFile = options['slack-data'];
   console.log(`ramelteonDataFile: ${ramelteonDataFile}`);
   try {
     data.ramelteon_data = fs.readFileSync(ramelteonDataFile, 'utf-8');
@@ -53,15 +54,27 @@ const sections = [
     return;
   }
 
+  const fitbitSleepJsonDataFile = options['fitbit-sleep-json'];
+  if (fitbitSleepJsonDataFile) {
+    console.log(`fitbit sleep json file: ${fitbitSleepJsonDataFile}`);
+    try {
+      data.fitbit_sleep_data_json =
+          fs.readFileSync(fitbitSleepJsonDataFile, 'utf-8');
+    } catch (e) {
+      console.error(e);
+      return;
+    }
+  }
+
   const dst_file = `dst/report_${getDateStr(new Date())}.html`;
   console.log(`dst: ${dst_file}`);
 
-  if(options["serve"]) {
+  if (options['serve']) {
     let app = express();
     app.use(express.static('public'));
     app.set('view engine', 'ejs');
     app.get('/', (req, res) => {
-        res.render('template', data);
+      res.render('template', data);
     });
     app.listen(4000, () => console.log('Example app listening on port 4000!'));
     return;

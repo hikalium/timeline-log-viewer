@@ -6,6 +6,8 @@ Log viewer in chronological way
 
 https://www.fitbit.com/settings/data/export
 
+export data as csv (sleep only)
+
 ```
 $ node get.js
 1585410991.000200,ロゼレム摂取
@@ -15,5 +17,8 @@ $ node get.js
 ```
 
 ```
-node gen.js --fitbit-data data_fitbit/data_merged_20200314170657.csv --slack-data data_slack/slack_out_filtered.txt -s
+node get.js # will generate dst/slack_YYYYMMDD.txt
+./format.sh fitbit_export_202001.csv fitbit_export_202002.csv fitbit_export_202003.csv fitbit_export_202004.csv fitbit_export_202005.csv
+# data_fitbit/data_merged_YYYYMMDDhhmmss.csv
+node gen.js --fitbit-data data_fitbit/data_merged_YYMMDDhhmmss.csv --slack-data dst/slack_YYYYMMDD.txt -s
 ```
