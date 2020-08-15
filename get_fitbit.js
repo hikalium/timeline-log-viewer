@@ -10,7 +10,7 @@ var headers = {
 
 var options = {
   url:
-      `https://api.fitbit.com/1.2/user/${process.env.FITBIT_USER}/sleep/date/2020-08-01/2020-08-15.json`,
+      `https://api.fitbit.com/1.2/user/${process.env.FITBIT_USER}/sleep/date/2020-06-01/2020-08-15.json`,
   headers: headers
 };
 

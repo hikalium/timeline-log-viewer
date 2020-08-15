@@ -11,7 +11,7 @@ const dstFileName = `dst/slack_${util.getDateStr(new Date())}.txt`;
 
 (async () => {
   const timestampNow = (new Date()).getTime() / 1000;
-  const timestampOld = (new Date('2020-01-01T00:00:00+09:00')).getTime() / 1000;
+  const timestampOld = (new Date('2020-06-01T00:00:00+09:00')).getTime() / 1000;
 
   messages = [];
   hasMore = true;
