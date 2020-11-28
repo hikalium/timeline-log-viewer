@@ -6,4 +6,4 @@ TODAY=`date '+%Y%m%d'`
 echo "${FIRST_DATE} => ${LAST_DATE}"
 node get.js
 node get_fitbit.js --first-date ${FIRST_DATE} --last-date ${LAST_DATE} > dst/fitbit_sleep_${TODAY}.json
-node gen.js -s --fitbit-sleep-json dst/fitbit_sleep_${TODAY}.json --slack-data dst/slack_${TODAY}.txt
+./serve.sh

@@ -6,7 +6,6 @@
 </head>
 <body>
   <textarea id='input' style='display:none'>
-<%= fitbit_sleep_data %>
   </textarea>
   <textarea id='ramelteonInput' style='display:none'>
 <%= ramelteon_data %>
@@ -19,12 +18,9 @@
     <input id="dateLast"type="date">
     <button id="updateButton" onclick='updateResult();'>表示</button>
   </div>
-  <div id='output'>
-    <div id='d1' class='daterow'>
-      <div id='t1' style='left: 10%; height: 16px; width: 20%; background-color: #00ff00; position: absolute;'></div>
-    
+  <div id='wrapper' style='position:relative;'>
+    <div id='output' style='position:absolute; top:0; left:0; width:100%;'>
     </div>
-    <div id='d2' class='daterow'></div>
   </div>
   <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"

@@ -76,6 +76,19 @@ durationInDateList =
     durationInDateList.sort((eL, eR) => (eL[0] > eR[0]) ? 1 : -1);
 console.log(durationInDateList);
 
+function genDivDuration(divClass, beginMinutesInDay, endMinutesInDay) {
+  return $('<div>')
+      .addClass(divClass)
+      .css('left', `${(beginMinutesInDay / (60 * 24) * 100)}%`)
+      .css(
+          'width',
+          `${((endMinutesInDay - beginMinutesInDay) / (60 * 24) * 100)}%`);
+}
+function genDivEvent(divClass, minutesInDay) {
+  return $('<div>').addClass(divClass).css(
+      'left', '' + (minutesInDay / (60 * 24) * 100) + '%')
+}
+
 function updateResult() {
   let resultDiv = $('#output');
   resultDiv.empty();
@@ -98,28 +111,26 @@ function updateResult() {
     let rowDivHead =
         $('<div>').addClass('daterowhead').css('color', keyColor).text(key);
     resultDiv.append(rowDivHead);
+    // Generate timeline
     let rowDivBody = $('<div>').addClass('daterowbody');
-    resultDiv.append(rowDivBody);
     for (let d of durations) {
       if (d.length == 2) {
-        rowDivBody.append(
-            $('<div>')
-                .addClass('duration')
-                .css('left', '' + (d[0] / (60 * 24) * 100) + '%')
-                .css(
-                    'width',
-                    `calc(${((d[1] - d[0]) / (60 * 24) * 100)}% - 2px)`));
+        rowDivBody.append(genDivDuration('duration-sleep', d[0], d[1]).text(`${((d[1] - d[0])/60).toFixed(1)}`));
       } else {
-        rowDivBody.append(
-            $('<div>')
-                .addClass('time')
-                .addClass('tooltip')
-                .css('left', 'calc(' + (d[0] / (60 * 24) * 100) + '% - 6px)')
-                .append(`
+        rowDivBody.append(genDivEvent('time', d[0]).addClass('tooltip').append(`
                     <span class="tooltiptext">${d[0]}</span>
                     `));
       }
     }
+    // Generate Guides
+    for (var i = 0; i < 25; i++) {
+      rowDivBody.append(genDivDuration('duration-1h', i * 60, 0));
+    }
+    rowDivBody.append(genDivDuration('duration-6h', 6 * 60, 0));
+    rowDivBody.append(genDivDuration('duration-6h', 12 * 60, 0));
+    rowDivBody.append(genDivDuration('duration-6h', 18 * 60, 0));
+    // Append to the parent
+    resultDiv.append(rowDivBody);
   }
 }
 

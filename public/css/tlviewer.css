@@ -5,6 +5,12 @@
   padding-bottom: 2px;
   margin-left: 2.5%;
 }
+.bgrowbody {
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  border-left:2px solid #fff;
+  border-right:2px solid #fff;
+}
 .daterowbody {
   height: 16px;
   width: 95%;
@@ -14,25 +20,60 @@
   margin-right: 2.5%;
   border: 2px solid #c6c6c6;
   padding: 0;
+  box-sizing: content-box;
 }
-.duration {
-  height: 12px;
-  background-color: #ccccff;
+.duration-sleep {
+  height: 14px;
+  line-height: 14px;
+  font-size: 14px;
+  color: #0000ff;
+  background-color: #ccccff33;
   position: absolute;
   margin: 0;
+  margin-top: -1px;
   padding: 0;
   border: 2px solid #0000ff;
+  text-align: center;
+}
+.duration-6h {
+  height: 12px;
+  top: 2px;
+  background-color: transparent;
+  position: absolute;
+  margin: 0;
+  margin-left: -1px;
+  padding: 0;
+  border: 1px solid #c6c6c6;
+  border-top: 0px;
+  border-bottom: 0px;
+  box-sizing: content-box;
+}
+.duration-1h {
+  height: 4px;
+  top: 2px;
+  background-color: transparent;
+  position: absolute;
+  margin: 0;
+  margin-left: -1px;  /* should be same as the boarder width */
+  padding: 0;
+  border: 1px solid #c6c6c6;
+  border-top: 0px;
+  border-bottom: 0px;
+  box-sizing: content-box;
 }
 .time {
-  border-radius: 7px;
+  border-radius: 8px;
   height: 12px;
   width: 12px;
   //background-color: #ff0000;
   position: absolute;
   margin: 0;
+  margin-left: -8px;  /* should be same as (boarder width) +  (witdth / 2) */
   padding: 0;
-  border: 2px dotted #ff0000;
+  //border: 2px dotted #ff0000;
+  border: 2px solid #ff0000;
   background-color: rgba(255, 0, 0, 0.2);
+  box-sizing: content-box;
 }
 .tooltip {
   display: inline-block;
