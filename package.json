@@ -24,11 +24,11 @@
   },
   "homepage": "https://github.com/hikalium/timeline-log-viewer#readme",
   "dependencies": {
-    "@slack/web-api": "^5.8.0",
+    "@slack/web-api": "^5.15.0",
     "command-line-args": "^5.1.1",
-    "command-line-usage": "^6.1.0",
+    "command-line-usage": "^6.1.1",
     "dotenv": "^8.2.0",
-    "ejs": "^3.0.1",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "request": "^2.88.2"
   }
