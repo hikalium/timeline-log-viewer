@@ -115,7 +115,8 @@ function updateResult() {
     let rowDivBody = $('<div>').addClass('daterowbody');
     for (let d of durations) {
       if (d.length == 2) {
-        rowDivBody.append(genDivDuration('duration-sleep', d[0], d[1]).text(`${((d[1] - d[0])/60).toFixed(1)}`));
+        rowDivBody.append(genDivDuration('duration-sleep', d[0], d[1])
+                              .text(`${((d[1] - d[0]) / 60).toFixed(1)}`));
       } else {
         rowDivBody.append(genDivEvent('time', d[0]).addClass('tooltip').append(`
                     <span class="tooltiptext">${d[0]}</span>
