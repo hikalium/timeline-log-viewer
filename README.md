@@ -16,3 +16,5 @@ Get data + serve the result:
 ./gen_all.sh 2022-01-01
 ```
 
+Open http://localhost:4000/ to see your sleep timeline!
+
