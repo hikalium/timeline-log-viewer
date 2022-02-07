@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>timeline-log-viewer</title>
+  <link rel="stylesheet" href="css/tlviewer.css">
+</head>
+<body>
+    <textarea id='ramelteonInput' style='display:none'>
+1644163231.197619,ルネスタ
+1644158480.929479,ロゼレム
+1644076615.838449,ルネスタ
+1644072397.894179,ロゼレム
+1644058415.757069,ロラゼパム
+    </textarea>
+  <textarea id='sleepLogJson' style='display:none'>
+[
+ {
+  &#34;date&#34;: &#34;2022-02-07&#34;,
+  &#34;duration_ms&#34;: 11280000,
+  &#34;end_time&#34;: &#34;2022-02-07T20:16:00.000&#34;
+ },
+ {
+  &#34;date&#34;: &#34;2022-02-07&#34;,
+  &#34;duration_ms&#34;: 15840000,
+  &#34;end_time&#34;: &#34;2022-02-07T05:58:30.000&#34;
+ },
+ {
+  &#34;date&#34;: &#34;2022-02-06&#34;,
+  &#34;duration_ms&#34;: 8160000,
+  &#34;end_time&#34;: &#34;2022-02-06T22:57:30.000&#34;
+ },
+ {
+  &#34;date&#34;: &#34;2022-02-06&#34;,
+  &#34;duration_ms&#34;: 27900000,
+  &#34;end_time&#34;: &#34;2022-02-06T08:48:30.000&#34;
+ },
+ {
+  &#34;date&#34;: &#34;2022-02-05&#34;,
+  &#34;duration_ms&#34;: 28440000,
+  &#34;end_time&#34;: &#34;2022-02-05T09:50:30.000&#34;
+ }
+]
+    </textarea>
+    <input id="dateBegin"type="date">
+    <input id="dateLast"type="date">
+    <button id="updateButton" onclick='updateResult();'>表示</button>
+  </div>
+  <div id='wrapper' style='position:relative;'>
+    <div id='output' style='position:absolute; top:0; left:0; width:100%;'>
+    </div>
+  </div>
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/luxon@2.0.1/build/global/luxon.min.js"></script>
+  <script src="js/tlviewer.js"></script>
+</body>
+

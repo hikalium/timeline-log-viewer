@@ -32,13 +32,13 @@ const sections = [
   const options = commandLineArgs(optionDefinitions);
   const usage = commandLineUsage(sections);
   if (options.help) {
-    console.log(usage);
+    console.error(usage);
     process.exit(0);
   }
   if (options['first-date'] === undefined ||
       options['last-date'] === undefined) {
-    console.log('`--first-date` and `--last-date` should be specified.');
-    console.log(usage);
+    console.error('`--first-date` and `--last-date` should be specified.');
+    console.error(usage);
     process.exit(1);
   }
 
@@ -73,8 +73,8 @@ const sections = [
   const dst_file = `dst/report_${util.getDateStr(new Date())}.html`;
   fs.writeFileSync(
       dstFileName,
-      messages.filter((e) => e.text.indexOf('ロゼレム') != -1)
+      messages.filter((e) => e.text.indexOf('ロゼレム') != -1 || e.text.indexOf('ルネスタ') != -1 || e.text.indexOf('ロラゼパム') != -1)
           .map((e) => e.ts + ',' + e.text)
           .join('\n'));
-  console.log(`Result is written to ${dstFileName}`);
+  console.error(`Result is written to ${dstFileName}`);
 })();

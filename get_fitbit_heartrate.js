@@ -1,6 +1,9 @@
 // https://dev.fitbit.com/apps/oauthinteractivetutorial
 // https://dev.fitbit.com/build/reference/web-api/sleep/#get-sleep-logs-by-date-range
 
+// Time is recorded as in local time zone of the resource owner.
+// https://dev.fitbit.com/build/reference/web-api/developer-guide/application-design/#Time-Zones
+
 const request = require('request');
 const commandLineArgs = require('command-line-args');
 const commandLineUsage = require('command-line-usage');
@@ -47,28 +50,17 @@ const sections = [
   const requestHeaders = {
     'Authorization': 'Bearer ' + process.env.FITBIT_TOKEN,
   };
+  // Only one day is supported for Intraday Time Series.
+  // https://dev.fitbit.com/build/reference/web-api/heart-rate/#get-heart-rate-intraday-time-series
   const requestOptions = {
-    url: `https://api.fitbit.com/1.2/user/${
-        process.env.FITBIT_USER}/sleep/date/${options['first-date']}/${
-        options['last-date']}.json`,
+    url: `https://api.fitbit.com/1/user/${
+        process.env.FITBIT_USER}/activities/heart/date/${options['first-date']}/1d/1min.json`,
     headers: requestHeaders
   };
-  console.error('sending request');
   request(requestOptions, (error, response, body) => {
     if (!error && response.statusCode == 200) {
-      console.error('response OK');
       const data = JSON.parse(body);
-      const subset = data.sleep.map(e => {
-        return {
-          date: e.dateOfSleep,
-          duration_ms: e.duration,
-          end_time: e.endTime
-        };
-      });
-      console.log(JSON.stringify(subset, null, ' '));
-    } else {
-      console.error('Error!');
-      console.error(error);
+      console.log(data["activities-heart-intraday"]["dataset"].map(e => `${options['first-date']} ${e.time}\t${e.value}`).join("\n"));
     }
   });
 })();

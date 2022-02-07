@@ -10,17 +10,12 @@ const durationDateList = sleepLogJson.map(e => {
 });
 console.log(durationDateList);
 
-let durationStrList = document.getElementById('input')
-                          .value.split('\n')
-                          .map((s) => s.split(',').splice(0, 2))
-                          .filter((e) => e.length == 2)
-                          .map((e) => e.map((ds) => ds.split('"').join('')))
-
 let timeStrList = document.getElementById('ramelteonInput')
                       .value.split('\n')
                       .map((s) => s.split(',').splice(0, 2))
                       .filter((e) => e.length == 2);
-let timeDateList = timeStrList.map(e => new Date(parseFloat(e[0]) * 1000));
+let timeDateList = timeStrList.map(
+    e => {return {date: new Date(parseFloat(e[0]) * 1000), description: e[1]};});
 
 let durationInDateKV = {};
 
@@ -28,12 +23,12 @@ function appendDuration(key, begin, end) {
   if (durationInDateKV[key] === undefined) durationInDateKV[key] = [];
   if (begin === undefined) begin = 0;
   if (end === undefined) end = 60 * 24;
-  durationInDateKV[key].push([begin, end]);
+  durationInDateKV[key].push(['d', begin, end]);
 }
 
-function appendTime(key, begin) {
+function appendTime(key, begin, description) {
   if (durationInDateKV[key] === undefined) durationInDateKV[key] = [];
-  durationInDateKV[key].push([begin]);
+  durationInDateKV[key].push(['t', begin, description]);
 }
 
 function getDateKey(d) {
@@ -58,10 +53,10 @@ for (let d of durationDateList) {
   }
 }
 
-for (let d of timeDateList) {
-  let beginKey = getDateKey(d);
-  let beginMinutesInDay = d.getMinutes() + d.getHours() * 60;
-  appendTime(beginKey, beginMinutesInDay);
+for (let e of timeDateList) {
+  let beginKey = getDateKey(e.date);
+  let beginMinutesInDay = e.date.getMinutes() + e.date.getHours() * 60;
+  appendTime(beginKey, beginMinutesInDay, e.description);
 }
 
 console.log(durationInDateKV);
@@ -114,13 +109,28 @@ function updateResult() {
     // Generate timeline
     let rowDivBody = $('<div>').addClass('daterowbody');
     for (let d of durations) {
-      if (d.length == 2) {
-        rowDivBody.append(genDivDuration('duration-sleep', d[0], d[1])
-                              .text(`${((d[1] - d[0]) / 60).toFixed(1)}`));
-      } else {
-        rowDivBody.append(genDivEvent('time', d[0]).addClass('tooltip').append(`
+      if (d[0] == 'd') {
+        rowDivBody.append(genDivDuration('duration-sleep', d[1], d[2])
+                              .text(`${((d[2] - d[1]) / 60).toFixed(1)}`));
+      } else if (d[0] == 't') {
+        if (d[2].indexOf('ロゼレム') != -1) {
+          rowDivBody.append(
+              genDivEvent('time-ramelteon', d[1]).addClass('tooltip').append(`
                     <span class="tooltiptext">${d[0]}</span>
                     `));
+        } else if (d[2].indexOf('ルネスタ') != -1) {
+          rowDivBody.append(
+              genDivEvent('time-eszopiclone', d[1]).addClass('tooltip').append(`
+                    <span class="tooltiptext">${d[0]}</span>
+                    `));
+        } else if (d[2].indexOf('ロラゼパム') != -1) {
+          rowDivBody.append(
+              genDivEvent('time-lorazepam', d[1]).addClass('tooltip').append(`
+                    <span class="tooltiptext">${d[0]}</span>
+                    `));
+        }
+      } else {
+        console.error(`Unexpected ${d}`);
       }
     }
     // Generate Guides
