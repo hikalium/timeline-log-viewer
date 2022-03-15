@@ -60,7 +60,7 @@ const sections = [
   request(requestOptions, (error, response, body) => {
     if (!error && response.statusCode == 200) {
       const data = JSON.parse(body);
-      console.log(data["activities-heart-intraday"]["dataset"].map(e => `${options['first-date']} ${e.time}\t${e.value}`).join("\n"));
+      console.log(data["activities-heart-intraday"]["dataset"].map(e => `${options['first-date']} ${e.time},${e.value}`).join("\n"));
     }
   });
 })();

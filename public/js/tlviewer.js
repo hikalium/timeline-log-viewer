@@ -14,8 +14,9 @@ let timeStrList = document.getElementById('ramelteonInput')
                       .value.split('\n')
                       .map((s) => s.split(',').splice(0, 2))
                       .filter((e) => e.length == 2);
-let timeDateList = timeStrList.map(
-    e => {return {date: new Date(parseFloat(e[0]) * 1000), description: e[1]};});
+let timeDateList = timeStrList.map(e => {
+  return {date: new Date(e[0]), description: e[1]};
+});
 
 let durationInDateKV = {};
 
@@ -126,6 +127,11 @@ function updateResult() {
         } else if (d[2].indexOf('ロラゼパム') != -1) {
           rowDivBody.append(
               genDivEvent('time-lorazepam', d[1]).addClass('tooltip').append(`
+                    <span class="tooltiptext">${d[0]}</span>
+                    `));
+        } else if (d[2].indexOf('デエビゴ') != -1) {
+          rowDivBody.append(
+              genDivEvent('time-lemborexant', d[1]).addClass('tooltip').append(`
                     <span class="tooltiptext">${d[0]}</span>
                     `));
         }

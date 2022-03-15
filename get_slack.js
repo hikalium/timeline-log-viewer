@@ -73,8 +73,8 @@ const sections = [
   const dst_file = `dst/report_${util.getDateStr(new Date())}.html`;
   fs.writeFileSync(
       dstFileName,
-      messages.filter((e) => e.text.indexOf('ロゼレム') != -1 || e.text.indexOf('ルネスタ') != -1 || e.text.indexOf('ロラゼパム') != -1)
-          .map((e) => e.ts + ',' + e.text)
+      messages.filter((e) => e.text.indexOf('ロゼレム') != -1 || e.text.indexOf('ルネスタ') != -1 || e.text.indexOf('ロラゼパム') != -1 || e.text.indexOf('デエビゴ') != -1)
+          .map((e) => (new Date(parseFloat(e.ts) * 1000)).toISOString() + ',' + e.text)
           .join('\n'));
   console.error(`Result is written to ${dstFileName}`);
 })();
