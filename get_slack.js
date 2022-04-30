@@ -12,6 +12,7 @@ const dstFileName = `dst/slack_${util.getDateStr(new Date())}.txt`;
 
 const optionDefinitions = [
   {name: 'help', alias: 'h', type: Boolean, description: 'print help.'},
+  {name: 'all', alias: 'a', type: Boolean, description: 'dump all messages'},
   {
     name: 'first-date',
     type: String,
@@ -73,7 +74,7 @@ const sections = [
   const dst_file = `dst/report_${util.getDateStr(new Date())}.html`;
   fs.writeFileSync(
       dstFileName,
-      messages.filter((e) => e.text.indexOf('ロゼレム') != -1 || e.text.indexOf('ルネスタ') != -1 || e.text.indexOf('ロラゼパム') != -1 || e.text.indexOf('デエビゴ') != -1)
+      messages.filter((e) => options.all || e.text.indexOf('ロゼレム') != -1 || e.text.indexOf('ルネスタ') != -1 || e.text.indexOf('ロラゼパム') != -1 || e.text.indexOf('デエビゴ') != -1)
           .map((e) => (new Date(parseFloat(e.ts) * 1000)).toISOString() + ',' + e.text)
           .join('\n'));
   console.error(`Result is written to ${dstFileName}`);
